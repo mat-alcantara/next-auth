@@ -1,6 +1,9 @@
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
 import { FormEvent, useState } from "react";
 
 import { useAuth } from "../hooks/useAuth";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 export default function Home() {
   const { signIn } = useAuth();
@@ -34,3 +37,11 @@ export default function Home() {
     </form>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(
+  async (ctx) => {
+    return {
+      props: {},
+    };
+  }
+);
